@@ -68,7 +68,13 @@ function makeMove(userMove) {
 
   // Display the result and score
       document.querySelector('.js-result').innerHTML=result;
-      document.querySelector('.js-moves').innerHTML=`You ${userMove} - ${computerMove} Computer`;
+
+      document.querySelector('.js-moves').innerHTML
+      =`You
+        <img src="${userMove}-emoji.png" class="move-icon">
+        <img src="${computerMove}-emoji.png" 
+        class="move-icon">
+        Computer`;
 
     }
 
