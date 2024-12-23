@@ -1,9 +1,18 @@
  // Object to track the score
-const score = {
-  wins: 0,
-  loses: 0,
-  ties: 0,
+let score = JSON.parse(localStorage.getItem('score')) || {
+    wins:0,
+  loses:0,
+  ties:0
 };
+
+//function to reset score
+function resetScore(){
+  score.wins=0;
+  score.loses=0;
+  score.ties=0;
+  localStorage.removeItem('score');
+  updateScoreElement();
+}
 
 // Function to generate random computer moves
 function getComputerMove() {
@@ -50,8 +59,22 @@ function makeMove(userMove) {
     score.ties += 1;
   }
 
+  //To store score in localStorage
+  localStorage.setItem('score',JSON.stringify(score));
+    updateScoreElement();
+
+
+     
+
   // Display the result and score
-  alert(`You picked ${userMove} and the computer picked ${computerMove}. 
-Result: ${result}
-Wins: ${score.wins}, Losses: ${score.loses}, Ties: ${score.ties}`);
-}
+      document.querySelector('.js-result').innerHTML=result;
+      document.querySelector('.js-moves').innerHTML=`You ${userMove} - ${computerMove} Computer`;
+
+    }
+
+    //Fuction to updateScore
+    function updateScoreElement(){
+      document.querySelector('.js-score')
+      .innerHTML=`Wins: ${score.wins}, Losses: ${score.loses}, Ties: ${score.ties}`;
+
+    }
