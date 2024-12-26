@@ -14,6 +14,7 @@ function resetScore(){
   updateScoreElement();
 }
 
+
 // Function to generate random computer moves
 function getComputerMove() {
   const randomValue = Math.random(); // Generate a random number
@@ -45,6 +46,53 @@ function getResult(userMove, computerMove) {
   return 'You Lose';
 }
 
+let isAutoPlaying=false;
+let intervalId='';
+
+
+function autoPlay() {
+  if(!isAutoPlaying){
+   intervalId = setInterval(()=> {
+      const userMove=getComputerMove();
+      makeMove(userMove);
+      },1000); 
+      isAutoPlaying=true;
+}  else{
+    clearInterval(intervalId);
+    isAutoPlaying = false;
+}
+}
+
+const rockElement=document.querySelector('.js-rock-button');
+rockElement.addEventListener('click',() => {
+  makeMove('rock');
+});
+
+const paperElement = document.querySelector('.js-paper-button');
+paperElement.addEventListener('click',() => {
+  makeMove('paper');
+});
+
+
+const scissorsElement = document.querySelector('.js-scissors-button');
+scissorsElement.addEventListener('click',() => {
+  makeMove('scissors');
+});
+
+document.body.addEventListener('keydown', (event) =>{
+ if(event.key === 'r'){
+    makeMove('rock');
+ }else if(event.key === 'p'){
+    makeMove('paper');
+  }
+ else if(event.key === 's'){
+  makeMove('scissors');
+ }
+});
+
+
+
+
 // Main function to handle user move
 function makeMove(userMove) {
   const computerMove = getComputerMove(); // Get the computer's move
@@ -62,9 +110,6 @@ function makeMove(userMove) {
   //To store score in localStorage
   localStorage.setItem('score',JSON.stringify(score));
     updateScoreElement();
-
-
-     
 
   // Display the result and score
       document.querySelector('.js-result').innerHTML=result;

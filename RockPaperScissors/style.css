@@ -42,7 +42,8 @@ h1 {
 }
 
 
-.reset-score-button{
+.reset-score-button,
+.auto-play-button{
   color: white;
   background-color: black;
   border: 1px solid rgb(255, 251, 0);
